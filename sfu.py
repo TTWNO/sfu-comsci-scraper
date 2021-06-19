@@ -44,11 +44,15 @@ def get_extra_for_section(section):
 
 r = requests.get(BASE_URL + LIST_URL)
 soup = BeautifulSoup(r.content, "html5lib")
+print("<!DOCTYPE html><html>")
+print("<head><meta charset=\"UTF-8\"></head>")
+print("<body>")
 print("<h1>Tait's Amzing Course List! YEEET!!!</h1>")
 for h in soup.select("section.main h3"):
   l = h.find("a")
   if not l:
     continue
+  print("<div class=\"course\">")
   course_code_id = l.get_text().replace(" ", "-")
   print("<h2 id=\"{0}\">{1}</h2>".format(course_code_id, h.get_text()))
 
@@ -68,4 +72,6 @@ for h in soup.select("section.main h3"):
   else:
     print("<p>N/A</p>")
   print("<p>More info at: <a href=\"{0}\">Simon Fraser's website</a></p>".format(l["href"]))
+  print("</div>")
 
+print("</body></html>")
